@@ -1,0 +1,10 @@
+数据库路由：
+	01.D:\ACCESS\nacfg 文件内容改为：
+		NANO=115
+		DTCT=NW
+		---服务路由使用
+	02.生成的SQL DatabaseType设置为自己的标识：82(注意范围)，建库State设置为0
+	03.
+	
+	
+	KeyID
