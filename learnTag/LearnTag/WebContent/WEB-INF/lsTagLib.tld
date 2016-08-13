@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd" >
+<taglib>
+  <description>简单标签库</description>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>2.3</jsp-version>
+  <short-name>lsTaglib</short-name>
+  <uri>/lsTaglib</uri>
+  
+  <tag>
+    <name>referer</name>
+    <tag-class>me.utlight.simpletag.RefererTag</tag-class>
+    <body-content>empty</body-content>
+    
+    <attribute>
+    	<description>site属性</description>
+    	<name>site</name>
+    	<required>true</required>
+    	<!-- 用来指示标签的属性值是否可以是一个表达式， 一般设置为true -->
+    	<rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+    <attribute>
+	   	<description>page属性</description>
+	   	<name>page</name>
+	   	<required>true</required>
+	   	<!-- 用来指示标签的属性值是否可以是一个表达式， 一般设置为true -->
+	   	<rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+  	<description>if标签</description>
+  	<name>if</name>
+  	<tag-class>me.utlight.simpletag.IFTag</tag-class>
+  	<body-content>scriptless</body-content>
+  	
+  	<attribute>
+  		<description>test属性</description>
+  		<name>test</name>
+  		<rtexprvalue>true</rtexprvalue>
+  		<required>true</required>
+  	</attribute>
+  </tag>
+  
+  <tag>
+  	<description>choose标签</description>
+  	<name>choose</name>
+  	<tag-class>me.utlight.simpletag.ChooseTag</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
+  
+  <tag>
+  	<description>when标签</description>
+  	<name>when</name>
+  	<tag-class>me.utlight.simpletag.WhenTag</tag-class>
+  	<body-content>scriptless</body-content>
+  	
+  	<attribute>
+  		<description>test属性</description>
+  		<name>test</name>
+  		<rtexprvalue>true</rtexprvalue>
+  		<required>true</required>
+  	</attribute>
+  </tag>
+  
+  <tag>
+  	<description>Otherwise标签</description>
+  	<name>otherwise</name>
+  	<tag-class>me.utlight.simpletag.OtherWiseTag</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
+
+  <tag>
+  	<description>foreach标签</description>
+  	<name>foreach</name>
+  	<tag-class>me.utlight.simpletag.ForEachTag</tag-class>
+  	<body-content>scriptless</body-content>
+  	
+  	<attribute>
+  		<description>var属性</description>
+  		<name>var</name>
+  		<rtexprvalue>false</rtexprvalue>
+  		<required>true</required>
+  	</attribute>
+  	
+  	<attribute>
+  		<description>items属性</description>
+  		<name>items</name>
+  		<rtexprvalue>true</rtexprvalue>
+  		<required>true</required>
+  	</attribute>
+  </tag>
+  
+ <tag>
+  	<description>htmlescape标签</description>
+  	<name>htmlEscape</name>
+  	<tag-class>me.utlight.simpletag.HtmlEscapeTag</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
+  
+ <tag>
+  	<description>out标签</description>
+  	<name>out</name>
+  	<tag-class>me.utlight.simpletag.OutTag</tag-class>
+  	<body-content>empty</body-content>
+  	
+  	<attribute>
+  		<description>content属性</description>
+  		<name>content</name>
+  		<rtexprvalue>true</rtexprvalue>
+  		<required>true</required>
+  	</attribute>
+  	
+  	<attribute>
+  		<description>escapeHtml属性</description>
+  		<name>escapeHtml</name>
+  		<rtexprvalue>true</rtexprvalue>
+  		<required>false</required>
+  	</attribute>
+  </tag>
+</taglib>
