@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 映射对应的 package -->
+<hibernate-mapping package="me.utlight.entity">
+
+	<class name="Course" table="course_table">
+	
+	    <!-- 设置 id 自增 -->
+	    <id name="c_id" column="cid">
+	        <generator class="native"></generator>
+	    </id>
+	    <property name="c_name" column="cname"></property>
+	
+	    <!-- 注意这里没有设置 inverse，表示由  Course 来维护关联关系-->
+	    <set name="students" cascade="save-update" table="sc_table">
+	         <key column="cid" not-null="true"></key>
+	         <many-to-many class="Student" column="sid" ></many-to-many>  
+	    </set> 
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 映射对应的 package -->
+<hibernate-mapping package="me.utlight.entity">
+
+    <!-- 实体类和数据库中的表对应（如果没有这个表则新建） -->
+    <class name="Student" table="table_student">
+
+        <!-- id主键 和其他属性对应表中相应的字段（这些都是在 User.java 实体类中定义的） -->
+        <id name="stu_id" column="sid">
+        	<generator class="native"></generator>
+        </id>
+     
+     	<property name="stu_name" column="sname"></property>
+    	<!-- cascade="save-update"：表示在保存和更新当前对象时，级联保存和更新附属对象 -->
+	    <!-- inverse="true"：表示该对象不维护关联关系（一般只由一边来维护，由 Course 来维护） -->
+	    <!-- table="sc_table"：表示中间表 -->
+     	<set name="courses" cascade="save-update" inverse="true" table="sc_table">
+     		<!-- column 为中间表参照 student_table 的外键 -->
+     		<key column="sid" not-null="true"></key>
+     		<many-to-many class="Course" column="cid"></many-to-many>
+     	</set>
+
+    </class>
+</hibernate-mapping>

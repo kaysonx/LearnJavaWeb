@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 映射对应的 package -->
+<hibernate-mapping package="me.utlight.entity">
+
+    <!-- class 和数据库中 table 对应（如果没有这个表则新建） -->
+    <class name="Group" table="table_group">
+
+        <!-- id 主键，设为自增 -->
+        <id name="id" column="gid">
+            <generator class="native"></generator>
+        </id>
+        <property name="groupname" column="groupname"></property>
+        
+        
+        <set name="users">
+        	<key column="gid"></key>
+        	<one-to-many class="me.utlight.entity.User"/>
+        </set>   
+    </class>
+</hibernate-mapping>
