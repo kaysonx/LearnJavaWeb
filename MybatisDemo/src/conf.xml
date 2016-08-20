@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 引用配置文件 也可以直接将配置信息写在这 -->
+	<properties resource="db.properties"/>
+	
+	<!-- 注意 <typeAliases>要放在<environments>之前，还要保证在<properties>之后，不然会报错 -->
+	 <!-- 配置实体类的别名，配置实体类别名的目的是为了在引用实体类时可以使用实体类的别名来代替实体类，达到简写的目的 -->
+    <typeAliases>
+        <!-- 为实体类me.utlight.entity.User配置一个别名_User -->
+        <!-- <typeAlias type="me.utlight.entity.User" alias="_User"/> -->
+        <!-- 为me.utlight.entity包下的所有实体类配置别名，MyBatis默认的设置别名的方式就是去除类所在的包后的简单的类名
+        比如me.utlight.entity.User这个实体类的别名就会被设置成User
+         -->
+        <package name="me.utlight.entity"/>
+    </typeAliases>
+	
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+                <property name="url" value="${url}" />
+                <property name="username" value="${name}" />
+                <property name="password" value="${password}" />
+            </dataSource>
+        </environment>    
+    </environments>
+    
+
+    
+    <mappers>
+    	 <!-- 注册userMapper.xml文件 -->
+    	 <mapper resource="me/utlight/mapping/userMapper.xml"/>
+    	 <mapper resource="me/utlight/mapping/orderMapper.xml"/>
+    	 <!--  测试一对一查询-->
+    	 <mapper resource="me/utlight/mapping/classMapper.xml"/>
+    	 <!-- 测试一对多查询 -->
+    	 <mapper resource="me/utlight/mapping/classMapper2.xml"/>
+    	 <!-- 测试存储过程 -->
+    	 <mapper resource="me/utlight/mapping/userMapper2.xml"/>
+    	 
+    	 <!-- 注册映射接口 -->
+    	 <mapper class="me.utlight.mapping.UserMapperI"/>
+    </mappers>
+    
+</configuration>

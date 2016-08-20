@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 -->
+<mapper namespace="me.utlight.mapping.classMapper2">
+
+ <!-- 
+        根据classId查询对应的班级信息,包括学生,老师
+     -->
+    <!-- 
+    方式一: 嵌套结果: 使用嵌套结果映射来处理重复的联合结果的子集
+    SELECT * FROM class c, teacher t,student s WHERE c.teacher_id=t.t_id AND c.C_id=s.class_id AND  c.c_id=1
+     -->
+    <select id="getClass3" parameterType="int" resultMap="ClassResultMap3">
+        select * from class c, teacher t,student s where c.teacher_id=t.t_id and c.c_id=s.class_id and  c.c_id=#{id}
+    </select>
+    <resultMap type="me.utlight.entity.Classes2" id="ClassResultMap3">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        
+        <association property="teacher" column="teacher_id" javaType="me.utlight.entity.Teacher">
+            <id property="id" column="t_id"/>
+            <result property="name" column="t_name"/>
+        </association>
+        
+        <!-- ofType指定students集合中的对象类型 -->
+        <collection property="students" ofType="me.utlight.entity.Student">
+            <id property="id" column="s_id"/>
+            <result property="name" column="s_name"/>
+        </collection>
+    </resultMap>
+    
+    <!-- 
+        方式二：嵌套查询：通过执行另外一个SQL映射语句来返回预期的复杂类型
+            SELECT * FROM class WHERE c_id=1;
+            SELECT * FROM teacher WHERE t_id=1   //1 是上一个查询得到的teacher_id的值
+            SELECT * FROM student WHERE class_id=1  //1是第一个查询得到的c_id字段的值
+     -->
+     <select id="getClass4" parameterType="int" resultMap="ClassResultMap4">
+        select * from class where c_id=#{id}
+     </select>
+     <resultMap type="me.utlight.entity.Classes2" id="ClassResultMap4">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        
+        <association property="teacher" column="teacher_id" javaType="me.utlight.entity.Teacher" select="getTeacher2"></association>
+        <collection property="students" ofType="me.utlight.entity.Student" column="c_id" select="getStudent"></collection>
+     </resultMap>
+     
+     <select id="getTeacher2" parameterType="int" resultType="me.utlight.entity.Teacher">
+        SELECT t_id id, t_name name FROM teacher WHERE t_id=#{id}
+     </select>
+     
+     <select id="getStudent" parameterType="int" resultType="me.utlight.entity.Student">
+        SELECT s_id id, s_name name FROM student WHERE class_id=#{id}
+     </select>
+
+</mapper>
